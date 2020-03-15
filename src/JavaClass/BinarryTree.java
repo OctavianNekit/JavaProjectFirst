@@ -17,6 +17,10 @@ public class BinarryTree {
     public BinarryTree r;
     public BinarryTree l;
 
+    public BinarryTree(int value) {
+        this.value = value;
+    }
+
     class Node {
         int value;
         Node right;
@@ -101,6 +105,10 @@ public class BinarryTree {
     }
     public void delete(int value) {
         root = delete(root, value);
+    }
+
+    public int getValue() {
+        return value;
     }
 
     // Поиск числа и его соседей
