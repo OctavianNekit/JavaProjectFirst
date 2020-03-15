@@ -1,0 +1,6 @@
+# Default ignored files
+/workspace.xml
+hs_err_pid*
+*.xml
+*.iml
+.idea/*
