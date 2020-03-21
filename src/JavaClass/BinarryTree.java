@@ -122,7 +122,7 @@ public class BinarryTree {
         throw new Exception("Узел не существует");
     }
 
-    public BinarryTree[] nerby(int value) throws Exception {
+    public BinarryTree[] nearby(int value) throws Exception {
         return nearby(value, null);
     }
 
