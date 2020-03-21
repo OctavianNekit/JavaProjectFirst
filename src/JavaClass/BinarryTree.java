@@ -13,12 +13,9 @@
 package JavaClass;
 
 public class BinarryTree {
-    public int value;
-    public BinarryTree r;
-    public BinarryTree l;
 
     public BinarryTree(int value) {
-        this.value = value;
+        this.root = new Node(value);
     }
 
     class Node {
@@ -31,43 +28,43 @@ public class BinarryTree {
             right = null;
             left = null;
         }
+
+        // Добавление элемента в дерево
+
+        private Node add(int value) {
+            if (this == null) {
+                return new Node(value);
+            }
+            if (value > this.value) {
+                this.right = right.add(value);
+            } else if (value < this.value) {
+                this.left = left.add(value);
+            }
+                return this;
+        }
+
+        // Поиск нужного элемента в дереве
+
+        private boolean find(int value) {
+            if (this == null) {
+                return false;
+            }
+            if (this.value == value) {
+                return true;
+            }
+            return this.value > value ? find(left.value) : find(right.value);
+            // ? и : используются по принципу if и else
+        }
     }
 
     Node root;
 
-    // Добавление элемента в дерево
-    private Node add(Node current, int value) {
-        if (current == null) {
-            return new Node(value);
-        }
-        if (value > current.value) {
-            current.right = add(current.right, value);
-        } else if (value < current.value) {
-            current.left = add(current.left, value);
-        } else {
-            return current;
-        }
-        return current;
-    }
-
     public void add(int value) {
-        root = add(root, value);
-    }
-
-    // Поиск нужного элемента в дереве
-    private boolean find(Node current, int value) {
-        if (current == null) {
-            return false;
-        }
-        if (current.value == value) {
-            return true;
-        }
-        return current.value > value ? find(current.left, value) : find(current.right, value);
-        // ? и : используются по принципу if и else
+        root = root.add(value);
     }
 
     public boolean find(int value) {
-        return find(root, value);
+        return root.find(value);
     }
 
     // Удаление элемента из дерева
@@ -107,18 +104,14 @@ public class BinarryTree {
         root = delete(root, value);
     }
 
-    public int getValue() {
-        return value;
-    }
-
     // Поиск числа и его соседей
-    private BinarryTree[] nearby(int value, BinarryTree parent) throws Exception {
-        if (this.value == value)
-            return new BinarryTree[] {parent, r, l};
+    private BinarryTree nearby(int value, BinarryTree parent) throws Exception {
+        if (this.root == value)
+            return new Node;
         if (this.value < value && this.r != null)
-            return r.nearby(value, this);
+            return Node.nearby(value, this);
         if (this.value > value && this.l != null)
-            return l.nearby(value, this);
+            return Node.nearby(value, this);
         throw new Exception("Узел не существует");
     }
 
