@@ -32,9 +32,6 @@ public class BinarryTree {
         // Добавление элемента в дерево
 
         private Node add(int value) {
-            if (this == null) {
-                return new Node(value);
-            }
             if (value > this.value) {
                 this.right = right.add(value);
             } else if (value < this.value) {
@@ -46,9 +43,6 @@ public class BinarryTree {
         // Поиск нужного элемента в дереве
 
         private boolean find(int value) {
-            if (this == null) {
-                return false;
-            }
             if (this.value == value) {
                 return true;
             }
@@ -58,10 +52,6 @@ public class BinarryTree {
 
         // Удаление элемента из дерева
         private Node delete(int value) {
-            if (this == null) {
-                return null;
-            }
-
             if (this.value == value) {
                 if (this.left == null && this.right == null) {
                     return null;
