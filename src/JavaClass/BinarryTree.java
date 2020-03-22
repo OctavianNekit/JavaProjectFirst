@@ -55,6 +55,54 @@ public class BinarryTree {
             return this.value > value ? find(left.value) : find(right.value);
             // ? и : используются по принципу if и else
         }
+
+        // Удаление элемента из дерева
+        private Node delete(int value) {
+            if (this == null) {
+                return null;
+            }
+
+            if (this.value == value) {
+                if (this.left == null && this.right == null) {
+                    return null;
+                }
+                if (this.right == null) {
+                    return this.left;
+                }
+                if (this.left == null) {
+                    return this.right;
+                }
+                int smallestValue = findSmallValue(this.right);
+                this.value = smallestValue;
+                this.right = this.right.delete(smallestValue);
+                return this;
+            }
+            if (this.value < value) {
+                this.left = this.left.delete(value);
+                return this;
+            }
+
+            this.right = delete(value);
+            return this;
+        }
+        // Поиск минимального значения
+        private int findSmallValue(Node root) {
+            return root.left == null ? root.value : findSmallValue(root.left);
+        }
+
+        // Поиск числа и его соседей
+        private Node[] nearby(int value, Node parent) throws Exception {
+            if (this.value == value) {
+                return new Node[] {parent, this.right, this.left};
+            }
+            if (this.value < value && this.right != null) {
+                return this.right.nearby(this.value, parent);
+            }
+            if (this.value > value && this.left != null) {
+                return this.left.nearby(this.value, parent);
+            }
+            throw new Exception("Узел не существует");
+        }
     }
 
     Node root;
@@ -67,52 +115,8 @@ public class BinarryTree {
         return root.find(value);
     }
 
-    // Удаление элемента из дерева
-    private Node delete(Node current, int value) {
-        if (current == null) {
-            return null;
-        }
-
-        if (current.value == value) {
-            if (current.left == null && current.right == null) {
-                return null;
-            }
-            if (current.right == null) {
-                return current.left;
-            }
-            if (current.left == null) {
-                return current.right;
-            }
-            int smallestValue = findSmallValue(current.right);
-            current.value = smallestValue;
-            current.right = delete(current.right, smallestValue);
-            return current;
-        }
-        if (current.value < value) {
-            current.left = delete(current.left, value);
-            return current;
-        }
-
-        current.right = delete(current.right, value);
-        return current;
-    }
-    // Поиск минимального значения
-    private int findSmallValue(Node root) {
-        return root.left == null ? root.value : findSmallValue(root.left);
-    }
     public void delete(int value) {
-        root = delete(root, value);
-    }
-
-    // Поиск числа и его соседей
-    private BinarryTree nearby(int value, BinarryTree parent) throws Exception {
-        if (this.root == value)
-            return new Node;
-        if (this.value < value && this.r != null)
-            return Node.nearby(value, this);
-        if (this.value > value && this.l != null)
-            return Node.nearby(value, this);
-        throw new Exception("Узел не существует");
+        root = root.delete(value);
     }
 
     public BinarryTree[] nearby(int value) throws Exception {
