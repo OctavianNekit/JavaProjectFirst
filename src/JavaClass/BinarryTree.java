@@ -96,10 +96,10 @@ public class BinarryTree {
                 return new Node[] {parent, this.right, this.left};
             }
             if (this.value < value && this.right != null) {
-                return this.right.nearby(this.value, parent);
+                return this.right.nearby(value, parent);
             }
             if (this.value > value && this.left != null) {
-                return this.left.nearby(this.value, parent);
+                return this.left.nearby(value, parent);
             }
             throw new Exception("Узел не существует");
         }
@@ -119,8 +119,7 @@ public class BinarryTree {
         root = root.delete(value);
     }
 
-    public Node[] nearby(int value) throws Exception {
-        return nearby(value);
+    public Node[] nearby(int value, Node parent) throws Exception {
+        return root.nearby(value, parent);
     }
-
 }
