@@ -119,8 +119,8 @@ public class BinarryTree {
         root = root.delete(value);
     }
 
-    public BinarryTree[] nearby(int value) throws Exception {
-        return nearby(value, null);
+    public Node[] nearby(int value) throws Exception {
+        return nearby(value);
     }
 
 }
