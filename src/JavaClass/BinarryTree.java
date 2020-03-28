@@ -31,13 +31,18 @@ public class BinarryTree {
 
         // Добавление элемента в дерево
 
-        private Node add(int value) {
+        private void add(int value) {
             if (value > this.value) {
-                this.right = right.add(value);
+                if (right == null) {
+                    right = new Node(value);
+                }
+                else right.add(value);
             } else if (value < this.value) {
-                this.left = left.add(value);
+                if (left == null) {
+                    left = new Node(value);
+                }
+                else left.add(value);
             }
-                return this;
         }
 
         // Поиск нужного элемента в дереве
@@ -46,8 +51,16 @@ public class BinarryTree {
             if (this.value == value) {
                 return true;
             }
-            return this.value > value ? find(left.value) : find(right.value);
-            // ? и : используются по принципу if и else
+            if (this.value > value) {
+                if (left != null) {
+                    return left.find(value);
+                }
+            }
+            if (this.value < value) {
+                if (right != null) {
+                    return right.find(value);
+                }
+            } return false;
         }
 
         // Удаление элемента из дерева
@@ -78,9 +91,10 @@ public class BinarryTree {
         // Поиск минимального значения
         private int findSmallValue(Node root) {
             return root.left == null ? root.value : findSmallValue(root.left);
+            // ? и : используются по принципу if и else
         }
 
-        // Поиск числа и его соседей
+        // Поиск значения и его соседей
         private Node[] nearby(int value, Node parent) throws Exception {
             if (this.value == value) {
                 return new Node[] {parent, this.right, this.left};
@@ -97,9 +111,7 @@ public class BinarryTree {
 
     Node root;
 
-    public void add(int value) {
-        root = root.add(value);
-    }
+    public void add(int value) { root.add(value); }
 
     public boolean find(int value) {
         return root.find(value);
