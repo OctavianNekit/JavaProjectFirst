@@ -58,7 +58,41 @@ class Tests {
     }
 
     @Test
-    void NearbyTest1() {
+    void NearbyTest1() throws Exception {
+        BinarryTree bt = new BinarryTree(5);
+        bt.add(7);
+        bt.add(4);
+        bt.add(6);
+        bt.add(8);
+        bt.add(3);
+        bt.add(1);
+        BinarryTree.Node[] n = bt.nearby(7);
+        assertEquals(n[0].getValue(), 5);
+        assertEquals(n[1].getValue(), 8);
+        assertEquals(n[2].getValue(), 6);
+    }
 
+    @Test
+    void NearbyTest2() throws Exception {
+        BinarryTree bt = new BinarryTree(10);
+        bt.add(15);
+        bt.add(8);
+        bt.add(5);
+        BinarryTree.Node[] n = bt.nearby(15);
+        assertEquals(n[0].getValue(), 10);
+        assertNull(n[1]);
+        assertNull(n[2]);
+    }
+
+    @Test
+    void NearbyTest3() throws Exception {
+        BinarryTree bt = new BinarryTree(1);
+        bt.add(2);
+        bt.add(0);
+        BinarryTree.Node[] n = bt.nearby(1);
+        assertNull(n[0]);
+        assertEquals(n[1].getValue(), 2);
+        assertEquals(n[2].getValue(), 0);
+        assertThrows(Exception.class, () -> bt.nearby(10));
     }
 }
