@@ -80,12 +80,12 @@ public class BinarryTree {
                 this.right = this.right.delete(smallestValue);
                 return this;
             }
-            if (this.value < value) {
-                this.left = this.left.delete(value);
-                return this;
+            if (this.value < value && right != null) {
+                this.right = this.right.delete(value);
             }
-
-            this.right = delete(value);
+            if (this.value > value && left != null) {
+                this.left = this.left.delete(value);
+            }
             return this;
         }
         // Поиск минимального значения
